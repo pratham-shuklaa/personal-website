@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL ?? "/";
 ---
 
 <BaseLayout title="About Pratham Shukla" description="[PLACEHOLDER — about page description for SEO]">
@@ -65,13 +67,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <div class="mt-14 flex flex-wrap items-center gap-3 reveal">
       <a
-        href="/work"
+        href={`${base}work/`}
         class="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-soft hover:translate-y-[-1px] hover:shadow-[0_18px_52px_rgba(11,27,58,0.18)] transition"
       >
         See my work
       </a>
       <a
-        href="/#contact"
+        href={`${base}#contact`}
         class="inline-flex items-center justify-center rounded-full border border-ink/15 bg-white/70 px-6 py-3 text-sm font-semibold text-ink hover:border-ink/25 hover:bg-white transition"
       >
         Get in touch

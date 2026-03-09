@@ -1,15 +1,15 @@
----
+const base = import.meta.env.BASE_URL ?? "/";
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/work", label: "Work" }
+  { href: base, label: "Home" },
+  { href: `${base}about/`, label: "About" },
+  { href: `${base}work/`, label: "Work" }
 ];
 ---
 
 <header class="sticky top-0 z-40 bg-paper/80 backdrop-blur supports-[backdrop-filter]:bg-paper/70">
   <div class="mx-auto max-w-6xl px-5">
     <div class="flex h-16 items-center justify-between">
-      <a href="/" class="group inline-flex items-baseline gap-2">
+      <a href={base} class="group inline-flex items-baseline gap-2">
         <span class="font-display text-lg tracking-tightish text-ink">Pratham</span>
         <span class="text-sm text-ink/60 group-hover:text-ink transition">Shukla</span>
       </a>
@@ -24,7 +24,7 @@ const links = [
           </a>
         ))}
         <a
-          href="/#contact"
+          href={`${base}#contact`}
           class="rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-medium text-ink shadow-[0_1px_0_rgba(0,0,0,0.02)] hover:border-ink/25 hover:bg-white transition"
         >
           Get In Touch
@@ -54,7 +54,7 @@ const links = [
           </a>
         ))}
         <a
-          href="/#contact"
+          href={`${base}#contact`}
           class="mt-2 inline-flex w-fit rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-medium text-ink hover:border-ink/25 hover:bg-white transition"
         >
           Get In Touch
