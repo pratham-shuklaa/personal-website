@@ -1,0 +1,55 @@
+---
+type Props = {
+  headline: string;
+  subhead: string;
+};
+
+const { headline, subhead } = Astro.props;
+---
+
+<section class="min-h-[calc(100vh-4rem)] flex items-center">
+  <div class="mx-auto w-full max-w-6xl px-5 py-16">
+    <div class="grid gap-10 md:grid-cols-12 md:items-end">
+      <div class="md:col-span-8">
+        <p class="text-sm font-medium tracking-wide text-ink/60">[PLACEHOLDER — short descriptor]</p>
+        <h1 class="mt-5 font-display text-5xl leading-[0.95] tracking-tightish text-ink sm:text-6xl lg:text-7xl">
+          {headline}
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/75 sm:text-xl">
+          {subhead}
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <a
+            href="/work"
+            class="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-soft hover:translate-y-[-1px] hover:shadow-[0_18px_52px_rgba(11,27,58,0.18)] transition"
+          >
+            See My Work
+          </a>
+          <a
+            href="/#contact"
+            class="inline-flex items-center justify-center rounded-full border border-ink/15 bg-white/70 px-6 py-3 text-sm font-semibold text-ink hover:border-ink/25 hover:bg-white transition"
+          >
+            Get In Touch
+          </a>
+        </div>
+      </div>
+
+      <div class="md:col-span-4 md:justify-self-end">
+        <!-- [PLACEHOLDER — optional abstract visual / initials block] -->
+        <div class="relative overflow-hidden rounded-3xl border border-ink/10 bg-white/60 p-6 shadow-soft">
+          <div class="text-xs font-semibold tracking-wide text-ink/50">[PLACEHOLDER]</div>
+          <div class="mt-6 flex items-end justify-between">
+            <div>
+              <div class="font-display text-4xl tracking-tightish">PS</div>
+              <div class="mt-2 text-sm text-ink/60">[PLACEHOLDER — location]</div>
+            </div>
+            <div class="h-16 w-16 rounded-2xl bg-accent/10 ring-1 ring-accent/20"></div>
+          </div>
+          <div class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-accent/10 blur-2xl"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

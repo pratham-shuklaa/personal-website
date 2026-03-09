@@ -1,0 +1,183 @@
+---
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "[PLACEHOLDER — your email]";
+---
+
+<section id="contact" class="scroll-mt-24 border-t border-ink/10 bg-white/40">
+  <div class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-10 md:grid-cols-12 md:items-start">
+      <div class="md:col-span-5 reveal">
+        <h2 class="font-display text-4xl tracking-tightish sm:text-5xl">Let's Connect</h2>
+        <p class="mt-4 max-w-md text-base leading-relaxed text-ink/70">
+          [PLACEHOLDER — e.g. "I'm currently open to conversations about product, strategy, and social impact. Drop your
+          email and I'll reach out."]
+        </p>
+        <div class="mt-8 rounded-2xl border border-ink/10 bg-paper p-5">
+          <div class="text-sm font-semibold text-ink">What happens next</div>
+          <ul class="mt-3 space-y-2 text-sm text-ink/70">
+            <li>[PLACEHOLDER — You’ll get a reply within X days]</li>
+            <li>[PLACEHOLDER — Best topics to reach out about]</li>
+            <li>[PLACEHOLDER — Optional: add calendly link later]</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="md:col-span-7 reveal">
+        <div class="rounded-3xl border border-ink/10 bg-paper p-6 shadow-soft sm:p-8">
+          <!-- Form -->
+          <form data-contact-form data-contact-email={contactEmail} class="grid gap-5">
+            <div class="grid gap-2">
+              <label class="text-sm font-medium text-ink" for="name">Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                class="h-12 w-full rounded-2xl border border-ink/15 bg-white px-4 text-sm text-ink outline-none ring-0 placeholder:text-ink/40 focus:border-accent/40 focus:ring-2 focus:ring-accent/15"
+                placeholder="[PLACEHOLDER — your name]"
+              />
+              <p class="hidden text-sm text-red-700" data-error="name">[PLACEHOLDER]</p>
+            </div>
+
+            <div class="grid gap-2">
+              <label class="text-sm font-medium text-ink" for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                class="h-12 w-full rounded-2xl border border-ink/15 bg-white px-4 text-sm text-ink outline-none ring-0 placeholder:text-ink/40 focus:border-accent/40 focus:ring-2 focus:ring-accent/15"
+                placeholder="[PLACEHOLDER — you@example.com]"
+              />
+              <p class="hidden text-sm text-red-700" data-error="email">[PLACEHOLDER]</p>
+            </div>
+
+            <div class="grid gap-2">
+              <label class="text-sm font-medium text-ink" for="message">Message <span class="text-ink/50">(optional)</span></label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                class="w-full resize-none rounded-2xl border border-ink/15 bg-white px-4 py-3 text-sm text-ink outline-none ring-0 placeholder:text-ink/40 focus:border-accent/40 focus:ring-2 focus:ring-accent/15"
+                placeholder="[PLACEHOLDER — a short note]"
+              ></textarea>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <p class="hidden text-sm text-red-700" data-form-error>Something went wrong. Please try again.</p>
+              <p class="hidden text-sm text-ink/70" data-form-success>Thanks! I'll be in touch soon.</p>
+              <button
+                type="submit"
+                class="ml-auto inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-soft hover:translate-y-[-1px] hover:shadow-[0_18px_52px_rgba(11,27,58,0.18)] transition disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-soft"
+                data-submit
+              >
+                Send
+              </button>
+            </div>
+          </form>
+
+          <div class="mt-6 border-t border-ink/10 pt-5 text-xs text-ink/55">
+            [PLACEHOLDER — privacy note. e.g. "No spam. Only thoughtful replies."]<br />
+            <span class="text-ink/50"
+              >Static hosting note: this form opens your email client. Set `PUBLIC_CONTACT_EMAIL` for the destination.</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.querySelector("[data-contact-form]");
+    if (form instanceof HTMLFormElement) {
+      const submitBtn = form.querySelector("[data-submit]");
+      const successEl = form.querySelector("[data-form-success]");
+      const errorEl = form.querySelector("[data-form-error]");
+      const contactEmail = form.getAttribute("data-contact-email") || "";
+
+      const nameInput = form.querySelector("#name");
+      const emailInput = form.querySelector("#email");
+      const messageInput = form.querySelector("#message");
+
+      const nameErr = form.querySelector('[data-error="name"]');
+      const emailErr = form.querySelector('[data-error="email"]');
+
+      const setVisible = (el, visible) => {
+        if (!el) return;
+        el.classList.toggle("hidden", !visible);
+      };
+
+      const setError = (which, msg) => {
+        if (which === "name" && nameErr) {
+          nameErr.textContent = msg;
+          setVisible(nameErr, !!msg);
+        }
+        if (which === "email" && emailErr) {
+          emailErr.textContent = msg;
+          setVisible(emailErr, !!msg);
+        }
+      };
+
+      const validate = () => {
+        setError("name", "");
+        setError("email", "");
+        setVisible(errorEl, false);
+        setVisible(successEl, false);
+
+        const name = nameInput instanceof HTMLInputElement ? nameInput.value.trim() : "";
+        const email = emailInput instanceof HTMLInputElement ? emailInput.value.trim() : "";
+
+        let ok = true;
+        if (!name) {
+          setError("name", "Please enter your name.");
+          ok = false;
+        }
+        if (!email) {
+          setError("email", "Please enter your email.");
+          ok = false;
+        } else if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+          setError("email", "Please enter a valid email.");
+          ok = false;
+        }
+        return ok;
+      };
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!validate()) return;
+
+        try {
+          if (submitBtn instanceof HTMLButtonElement) submitBtn.disabled = true;
+          if (!contactEmail || contactEmail.includes("[PLACEHOLDER")) {
+            throw new Error("Missing contact email");
+          }
+
+          const name = nameInput instanceof HTMLInputElement ? nameInput.value.trim() : "";
+          const email = emailInput instanceof HTMLInputElement ? emailInput.value.trim() : "";
+          const message = messageInput instanceof HTMLTextAreaElement ? messageInput.value.trim() : "";
+
+          const subject = encodeURIComponent(`Portfolio contact — ${name}`);
+          const body = encodeURIComponent(
+            [
+              "New portfolio contact submission",
+              "",
+              `Name: ${name}`,
+              `Email: ${email}`,
+              "",
+              "Message:",
+              message || "[PLACEHOLDER — no message provided]"
+            ].join("\n")
+          );
+
+          window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+
+          setVisible(successEl, true);
+        } catch {
+          setVisible(errorEl, true);
+        } finally {
+          if (submitBtn instanceof HTMLButtonElement) submitBtn.disabled = false;
+        }
+      });
+    }
+  </script>
+</section>
+

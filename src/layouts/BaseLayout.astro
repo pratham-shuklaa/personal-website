@@ -1,0 +1,86 @@
+---
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+};
+
+const { title, description, ogTitle, ogDescription } = Astro.props;
+const resolvedOgTitle = ogTitle ?? title;
+const resolvedOgDescription = ogDescription ?? description;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
+
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={resolvedOgTitle} />
+    <meta property="og:description" content={resolvedOgDescription} />
+    <meta property="og:site_name" content="Pratham Shukla" />
+
+    <!-- Typography: display + body (no Inter/Roboto/Arial) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,600,60,1;9..144,700,60,1&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="font-sans bg-paper text-ink antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow-soft"
+      >Skip to content</a
+    >
+
+    <Navbar />
+
+    <main id="main" class="min-h-[70vh]">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      // Minimal scroll-reveal with IntersectionObserver (no library)
+      const prefersReduced =
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!prefersReduced && "IntersectionObserver" in window) {
+        const els = Array.from(document.querySelectorAll(".reveal"));
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("reveal--visible");
+                obs.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        document
+          .querySelectorAll(".reveal")
+          .forEach((el) => el.classList.add("reveal--visible"));
+      }
+    </script>
+  </body>
+</html>
+

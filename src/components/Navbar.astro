@@ -1,0 +1,86 @@
+---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/work", label: "Work" }
+];
+---
+
+<header class="sticky top-0 z-40 bg-paper/80 backdrop-blur supports-[backdrop-filter]:bg-paper/70">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="flex h-16 items-center justify-between">
+      <a href="/" class="group inline-flex items-baseline gap-2">
+        <span class="font-display text-lg tracking-tightish text-ink">Pratham</span>
+        <span class="text-sm text-ink/60 group-hover:text-ink transition">Shukla</span>
+      </a>
+
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+        {links.map((l) => (
+          <a
+            href={l.href}
+            class="link-underline text-sm font-medium text-ink/80 hover:text-ink transition"
+          >
+            {l.label}
+          </a>
+        ))}
+        <a
+          href="/#contact"
+          class="rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-medium text-ink shadow-[0_1px_0_rgba(0,0,0,0.02)] hover:border-ink/25 hover:bg-white transition"
+        >
+          Get In Touch
+        </a>
+      </nav>
+
+      <button
+        type="button"
+        class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 bg-white/70 text-ink hover:border-ink/25 hover:bg-white transition"
+        aria-label="Open menu"
+        aria-expanded="false"
+        data-menu-button
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="md:hidden hidden border-t border-ink/10" data-menu-panel>
+    <div class="mx-auto max-w-6xl px-5 py-4">
+      <nav class="flex flex-col gap-3" aria-label="Mobile">
+        {links.map((l) => (
+          <a href={l.href} class="text-base font-medium text-ink/85 hover:text-ink transition">
+            {l.label}
+          </a>
+        ))}
+        <a
+          href="/#contact"
+          class="mt-2 inline-flex w-fit rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-medium text-ink hover:border-ink/25 hover:bg-white transition"
+        >
+          Get In Touch
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.querySelector("[data-menu-button]");
+    const panel = document.querySelector("[data-menu-panel]");
+    if (btn && panel) {
+      const close = () => {
+        panel.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "false");
+      };
+      const open = () => {
+        panel.classList.remove("hidden");
+        btn.setAttribute("aria-expanded", "true");
+      };
+      btn.addEventListener("click", () => {
+        const isOpen = btn.getAttribute("aria-expanded") === "true";
+        isOpen ? close() : open();
+      });
+      panel.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+    }
+  </script>
+</header>
+

@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import EmailCapture from "../components/EmailCapture.astro";
+---
+
+<BaseLayout
+  title="Pratham Shukla — Product Manager"
+  description="[PLACEHOLDER — short homepage description for SEO]"
+>
+  <Hero
+    headline="[PLACEHOLDER — Your tagline here]"
+    subhead="[PLACEHOLDER — One sentence about what you do]"
+  />
+
+  <section class="border-t border-ink/10">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <div class="grid gap-10 md:grid-cols-12 md:items-start">
+        <div class="md:col-span-4 reveal">
+          <div class="text-xs font-semibold tracking-wide text-ink/55">[PLACEHOLDER — intro]</div>
+          <h2 class="mt-3 font-display text-3xl tracking-tightish sm:text-4xl">
+            [PLACEHOLDER — A short bio blurb]
+          </h2>
+        </div>
+        <div class="md:col-span-8 reveal">
+          <p class="max-w-3xl text-base leading-relaxed text-ink/70 sm:text-lg">
+            [PLACEHOLDER — 2–3 line teaser about Pratham. Keep it crisp, confident, and human. Mention the kind of
+            products you’ve built and the impact you care about.]
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              class="rounded-full border border-ink/15 bg-white/70 px-5 py-2.5 text-sm font-semibold text-ink hover:border-ink/25 hover:bg-white transition"
+              href="/about"
+            >
+              Read the story
+            </a>
+            <a
+              class="rounded-full border border-ink/15 bg-white/70 px-5 py-2.5 text-sm font-semibold text-ink hover:border-ink/25 hover:bg-white transition"
+              href="/work"
+            >
+              Explore work
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <EmailCapture />
+</BaseLayout>
+

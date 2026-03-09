@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WorkCard from "../components/WorkCard.astro";
+
+const roles = [
+  {
+    company: "Scaler (InterviewBit)",
+    title: "[PLACEHOLDER — Product Manager]",
+    duration: "[PLACEHOLDER — dates]",
+    location: "[PLACEHOLDER — location]",
+    bullets: [
+      "[PLACEHOLDER — What did you build? What changed because of your work?]",
+      "[PLACEHOLDER — What did you build? What changed because of your work?]",
+      "[PLACEHOLDER — What did you build? What changed because of your work?]"
+    ]
+  },
+  {
+    company: "Mastercard",
+    title: "[PLACEHOLDER — Role]",
+    duration: "[PLACEHOLDER — dates]",
+    location: "[PLACEHOLDER — location]",
+    bullets: [
+      "[PLACEHOLDER — What did you build? What changed because of your work?]",
+      "[PLACEHOLDER — What did you build? What changed because of your work?]"
+    ]
+  },
+  {
+    company: "[PLACEHOLDER — Earlier role / internship / project]",
+    title: "[PLACEHOLDER — Title]",
+    duration: "[PLACEHOLDER — dates]",
+    location: "[PLACEHOLDER — location]",
+    bullets: [
+      "[PLACEHOLDER — What did you build? What changed because of your work?]",
+      "[PLACEHOLDER — What did you build? What changed because of your work?]"
+    ]
+  }
+];
+---
+
+<BaseLayout title="Work Experience — Pratham Shukla" description="[PLACEHOLDER — work page description for SEO]">
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <header class="reveal">
+      <p class="text-xs font-semibold tracking-wide text-ink/55">[PLACEHOLDER — section label]</p>
+      <h1 class="mt-4 font-display text-5xl leading-[0.95] tracking-tightish sm:text-6xl">Work</h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink/70 sm:text-lg">
+        [PLACEHOLDER — one paragraph framing your product experience and the kinds of outcomes you optimize for.]
+      </p>
+    </header>
+
+    <div class="mt-12 grid gap-6">
+      {roles.map((r) => (
+        <div class="reveal">
+          <WorkCard {...r} />
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-14 rounded-3xl border border-ink/10 bg-white/60 p-7 shadow-soft reveal">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="font-display text-3xl tracking-tightish">Want to work together?</h2>
+          <p class="mt-2 text-sm leading-relaxed text-ink/70">
+            [PLACEHOLDER — a short line about what kinds of collaborations you’re open to.]
+          </p>
+        </div>
+        <a
+          href="/#contact"
+          class="inline-flex w-fit items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-soft hover:translate-y-[-1px] hover:shadow-[0_18px_52px_rgba(11,27,58,0.18)] transition"
+        >
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
