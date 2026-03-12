@@ -32,6 +32,7 @@ npm run dev
 
 - `/` Home (hero + contact section)
 - `/work` Work experience
+- `/blog` Blog list
 
 ## Contact form
 
@@ -51,4 +52,9 @@ Your site URL will be:
 ## Content
 
 All content is intentionally `[PLACEHOLDER]` so you can fill it in.
+
+## Blogging
+
+- Blog posts are markdown files in `src/content/blog/`
+- See `BLOGGING.md` for writing + image instructions
 
