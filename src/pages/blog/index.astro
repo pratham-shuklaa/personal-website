@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL ?? "/";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout title="Blog — Pratham Shukla" description="Thoughts on product, strategy, and life.">
+  <section class="mx-auto max-w-5xl px-5 py-16">
+    <header class="reveal">
+      <h1 class="font-display text-5xl tracking-tightish text-[#1a1a18] sm:text-6xl">Blog</h1>
+    </header>
+
+    <div class="mt-12 grid gap-6">
+      {posts.length === 0 ? (
+        <p class="text-[16px] text-[#6b6a65]">No posts yet. Check back soon.</p>
+      ) : (
+        posts.map((post) => (
+          <a
+            href={`${base}blog/${post.slug}/`}
+            class="reveal block rounded-2xl border border-ink/10 bg-white/55 p-4 transition hover:translate-y-[-1px] hover:shadow-soft sm:p-5"
+          >
+            <div class="text-[13px] text-[#9b9a95]">
+              {post.data.pubDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+              })}
+            </div>
+            <h2 class="mt-2 font-display text-3xl tracking-tightish text-[#1a1a18]">{post.data.title}</h2>
+          </a>
+        ))
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
