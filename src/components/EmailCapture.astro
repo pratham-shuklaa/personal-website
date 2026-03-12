@@ -1,5 +1,5 @@
 ---
-const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "[PLACEHOLDER — your email]";
+const formEndpoint = "https://formspree.io/f/xnjgvaqa";
 ---
 
 <section id="contact" class="scroll-mt-24 border-t border-ink/10 bg-white/40">
@@ -27,7 +27,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "[PLACEHOLDER — y
       <div class="md:col-span-7 reveal">
         <div class="rounded-3xl border border-ink/10 bg-paper p-6 shadow-soft sm:p-8">
           <!-- Form -->
-          <form data-contact-form data-contact-email={contactEmail} class="grid gap-5">
+          <form data-contact-form data-form-endpoint={formEndpoint} class="grid gap-5">
             <div class="grid gap-2">
               <label class="text-sm font-medium text-ink" for="name">Name</label>
               <input
@@ -88,7 +88,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "[PLACEHOLDER — y
       const submitBtn = form.querySelector("[data-submit]");
       const successEl = form.querySelector("[data-form-success]");
       const errorEl = form.querySelector("[data-form-error]");
-      const contactEmail = form.getAttribute("data-contact-email") || "";
+      const formEndpoint = form.getAttribute("data-form-endpoint") || "";
 
       const nameInput = form.querySelector("#name");
       const emailInput = form.querySelector("#email");
@@ -130,7 +130,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "[PLACEHOLDER — y
         if (!email) {
           setError("email", "Please enter your email.");
           ok = false;
-        } else if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
           setError("email", "Please enter a valid email.");
           ok = false;
         }
@@ -143,30 +143,31 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "[PLACEHOLDER — y
 
         try {
           if (submitBtn instanceof HTMLButtonElement) submitBtn.disabled = true;
-          if (!contactEmail || contactEmail.includes("[PLACEHOLDER")) {
-            throw new Error("Missing contact email");
+          if (!formEndpoint) {
+            throw new Error("Missing form endpoint");
           }
 
           const name = nameInput instanceof HTMLInputElement ? nameInput.value.trim() : "";
           const email = emailInput instanceof HTMLInputElement ? emailInput.value.trim() : "";
           const message = messageInput instanceof HTMLTextAreaElement ? messageInput.value.trim() : "";
+          const res = await fetch(formEndpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json"
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              message
+            })
+          });
 
-          const subject = encodeURIComponent(`Portfolio contact — ${name}`);
-          const body = encodeURIComponent(
-            [
-              "New portfolio contact submission",
-              "",
-              `Name: ${name}`,
-              `Email: ${email}`,
-              "",
-              "Message:",
-              message || "[PLACEHOLDER — no message provided]"
-            ].join("\n")
-          );
-
-          window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
-
+          if (!res.ok) {
+            throw new Error("Submission failed");
+          }
           setVisible(successEl, true);
+          form.reset();
         } catch {
           setVisible(errorEl, true);
         } finally {
