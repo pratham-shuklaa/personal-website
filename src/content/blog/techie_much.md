@@ -1,8 +1,8 @@
-'''
+---
   title: "Techie much?"
   pubDate: 2026-06-29
   draft: false
-'''
+---
 
 I have a weird standing for myself on tech. I went to an A grade technical college in the country, learned to code, and did courses that had a programming portion almost every other semester. I even work in a job which most people would call ‘techno’managerial. But I would never call myself a techie. If anyone does, it makes me feel like a serious fraud. Back in college, I couldn’t even complete my first programming lab correctly and I started taking help way earlier than other people in the same course. I could do a maximum of one out of three questions during the weekly assignment halfway into the course, and I would copy one more answer from Bhavesh. I would leave the third question untouched just so that there was less suspicion about me cheating. I scored 27/100 in my Data Structures midsem and dropped the course right after. It’s been quite a chest of failures when I look back at my programming history. 
 
