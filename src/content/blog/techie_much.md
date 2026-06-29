@@ -1,5 +1,5 @@
 '''
-  title: Techie much?
+  title: "Techie much?"
   pubDate: 2026-06-29
   draft: false
 '''
